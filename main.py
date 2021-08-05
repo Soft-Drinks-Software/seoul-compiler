@@ -1,8 +1,9 @@
 import time
-
-filename = input("Provide a valid .seoul file\n")
+import os
 
 print("Running on Seoul Compiler v1\n")
+filename = input("Provide a valid .seoul file\n")
+
 
 seoul_properties = {
     "seoul[__version__]": "1.0.0",
@@ -10,9 +11,12 @@ seoul_properties = {
     "seoul[__license__]": "idk"
 }
 
-if ".seoul" not in filename:
+
+if ".seoul" != filename[-6:]:
     print("Please provide a valid .seoul file!")
     exit()
+
+os.system("CLS")
 
 with open(filename) as content:
     try:
