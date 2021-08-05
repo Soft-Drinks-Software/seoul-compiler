@@ -21,18 +21,18 @@ with open(filename) as content:
         for line in content:
             line = line.replace("\n", "")
 
-            if "sys << " in line:
-                if line[7:] in list(seoul_properties.keys()):
-                    print(seoul_properties[line[7:]])
+            if line.startswith("sys << "):
+                if line[7:].startswith("seoul[") and not line[7:].startswith("\""):
+                    print(f">> {seoul_properties[line[7:]]}")
                 else:
                     print(">> " + line[7:].replace("\"", ""))
-            elif "throw << " in line:
+            elif line.startswith("throw << "):
                 raise Exception(line[9:])
-            elif "endthesuffering" in line:
+            elif line.startswith("endthesuffering"):
                 exit()
 
         end = time.time()
 
-        print(f"Process finished in {int(start - end)}ms")
+        print(f"\nProcess finished in {int(start - end)}ms")
     except FileNotFoundError:
         print("File not found!")
