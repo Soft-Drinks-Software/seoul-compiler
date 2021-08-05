@@ -10,8 +10,13 @@ if line.startswith("sys << "):
     if line[7:].startswith("seoul[") and not line[7:].startswith("\""):
         print(f">> {seoul_properties[line[7:]]}")
     else:
-        print(">> " + line[7:].replace("\"", ""))
+        if not line[7:].startswith("\""):
+            raise Exception("lol put some \" to print smh")
+        else:
+            print(">> " + line[7:].replace("\"", "").replace("\\n", "\n"))
 elif line.startswith("throw << "):
     raise Exception(line[9:])
 elif line.startswith("endthesuffering"):
     exit()
+else:
+    raise Exception(f"idk what that means lol {line}")
