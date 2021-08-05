@@ -1,6 +1,6 @@
 import time
 
-filename = input("Provide a valid .seoul file")
+filename = input("Provide a valid .seoul file\n")
 
 print("Running on Seoul Compiler v1\n")
 
@@ -19,11 +19,17 @@ with open(filename) as content:
         start = time.time()
 
         for line in content:
+            line = line.replace("\n", "")
+
             if "sys << " in line:
                 if line[7:] in list(seoul_properties.keys()):
                     print(seoul_properties[line[7:]])
                 else:
                     print(">> " + line[7:].replace("\"", ""))
+            elif "throw << " in line:
+                raise Exception(line[9:])
+            elif "endthesuffering" in line:
+                exit()
 
         end = time.time()
 
